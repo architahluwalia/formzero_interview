@@ -1,0 +1,52 @@
+<html>
+
+    <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  
+    <script type="text/javascript" language="javascript">  
+      
+    $(".btn").live("click",function(){  
+        var flag = $(this).attr('value');     
+        $.ajax({  
+            type:"GET",  
+            url:"requestHandler.php",  
+            data:"flag="+flag,
+
+            success:function(data){ 
+                $('#result').empty();
+
+                if (flag == 'dept'){
+                    $('#result').append('<th> userid</th> <th> dept Name</th>');
+                    for (var i=0;i<data.length;++i){
+                        $('#result').append('<tr> <td>'+data[i].user_id+'</td> <td>'+data[i].name+'</td></tr>');
+                    }
+                } 
+                else if (flag =='manager'){
+                    $('#result').append('<th> user name</th> <th> manager Name</th>');
+                    for (var i=0;i<data.length;++i){
+                        $('#result').append('<tr> <td>'+data[i].user+'</td> <td>'+data[i].manager+'</td></tr>');
+                    }
+                }
+
+                else if (flag ='userManagerDept'){
+                    $('#result').append('<th> user name</th> <th> manager Name</th> <th> dept. Name</th>');
+                    for (var i=0;i<data.length;++i){
+                        $('#result').append('<tr> <td>'+data[i].user+'</td> <td>'+data[i].manager+'</td>  <td>'+data[i].dept_name+'</td></tr>');
+                    }
+
+                }
+            }  
+        });  
+    });  
+      
+    </script> 
+
+    <body> 
+    <input type="button" value="dept" class="btn">
+    <input type="button" value="manager" class="btn">  
+    <input type="button" value="userManagerDept" class="btn">  
+
+    <table id="result">
+    </table>
+
+    </body>
+
+</html>
